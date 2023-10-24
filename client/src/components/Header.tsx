@@ -1,5 +1,9 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../UserContext';
 export default function Header() {
+  // @ts-ignore
+  const { user } = useContext(UserContext);
   return (
     <header className='p-4 flex  justify-between'>
       <a href='' className='logo flex items-center'>
@@ -105,6 +109,7 @@ export default function Header() {
             />
           </svg>
         </div>
+        {!!user && <div>{user.name}</div>}
       </Link>
     </header>
   );

@@ -44,7 +44,7 @@ app.get('/test', (req, res) => {
           if(err) {
             throw err
           }
-          res.cookie('token',token).json({message: 'pass ok'})
+          res.cookie('token',token).json(userDoc)
         })
       }
     } else {
