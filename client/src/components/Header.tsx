@@ -50,7 +50,7 @@ export default function Header() {
           />
         </svg>
 
-        <span className='font-bold text-xl'>Iron Sword Homes</span>
+        <span className='font-bold text-xl'>Bring Them Home</span>
       </a>
       <div className='flex gap-2 border border-gray-300 rounded-full py-2 px-4 shadow-md shadow-gray-300'>
         <div className=''>Anywhere</div>
