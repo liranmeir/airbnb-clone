@@ -86,4 +86,7 @@ app.get('/profile', (req, res) => {
   }
 });
 
+app.post('/logout', (req, res) => {
+  res.coockie('token', '').json(true)
+})
 app.listen(4000);
