@@ -18,8 +18,8 @@ app.use(
     origin: 'http://127.0.0.1:5173',
   })
 );
-mongoose.connect(process.env.MONGO_URL);
-
+// mongoose.connect(process.env.MONGO_URL);
+mongoose.connect('mongodb+srv://asigeula:8xELyjha1GoVPfwO@cluster0.pyjqcqx.mongodb.net/?retryWrites=true&w=majorit');
 app.get('/test', (req, res) => {
   res.json('test ok');
 });
@@ -87,6 +87,6 @@ app.get('/profile', (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-  res.coockie('token', '').json(true)
+  res.cookie('token', '').json(true)
 })
 app.listen(4000);

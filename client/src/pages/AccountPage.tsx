@@ -4,13 +4,19 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 export default function AccountPage() {
-  const [redirect, setRedirect] = useState(null);
-  const { subpage } = useParams();
+  //add the correct type for redirect
+  const [redirect, setRedirect] = useState<string | null>(null);
+  let { subpage } = useParams();
+  if (subpage === undefined) {
+    subpage = 'profile';
+  }
   const { user, ready, setUser } = useContext(UserContext);
 
   async function logout() {
     await axios.post('/logout');
-    setUser(null);
+    if (setUser) {
+      setUser(null);
+    }
     setRedirect('/');
   }
 
@@ -21,10 +27,10 @@ export default function AccountPage() {
   if (ready && !user && !redirect) {
     return <Navigate to='/login' />;
   }
-  function linkClasses(type = null) {
-    let classes = 'inline-flex gap-1 py-2 px-6 rounded-full';
+  function linkClasses(type: string | null = null) {
+    let classes = 'py-2 px-6 rounded-full inline-flex items-center';
     if (type === subpage) {
-      classes += ' bg-primary text-white';
+      classes += ' bg-primary text-white ';
     } else {
       classes += ' bg-gray-200';
     }
@@ -69,7 +75,7 @@ export default function AccountPage() {
               d='M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z'
             />
           </svg>
-          My bookings
+          {''} My bookings
         </Link>
         <Link className={linkClasses('places')} to={'/account/places'}>
           <svg
@@ -90,8 +96,8 @@ export default function AccountPage() {
         </Link>
       </nav>
       {subpage === 'profile' && (
-        <div className='w-full flex justify-center mt-8 gap-2 mb-8'>
-          Logged in as {user.name} ({user.email})<br />
+        <div className='text-center max-w-lg mx-auto mb-8'>
+          Logged in as {user?.name} ({user?.email})<br />
           <button className='primary max-w-sm mt-2' onClick={logout}>
             Logout
           </button>
