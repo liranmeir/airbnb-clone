@@ -19,7 +19,6 @@ app.use(
   })
 );
 mongoose.connect(process.env.MONGO_URL);
-// mongoose.connect('mongodb+srv://asigeula:8xELyjha1GoVPfwO@cluster0.pyjqcqx.mongodb.net/?retryWrites=true&w=majorit');
 app.get('/test', (req, res) => {
   res.json('test ok');
 });
