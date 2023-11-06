@@ -5,7 +5,7 @@ export default function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  function registerUser(e) {
+  function registerUser(e: React.FormEvent) {
     e.preventDefault();
     try {
       axios.post('/register', {

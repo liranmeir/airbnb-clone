@@ -19,7 +19,6 @@ app.use(
   })
 );
 mongoose.connect(process.env.MONGO_URL);
-
 app.get('/test', (req, res) => {
   res.json('test ok');
 });
@@ -87,6 +86,6 @@ app.get('/profile', (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-  res.coockie('token', '').json(true)
+  res.cookie('token', '').json(true)
 })
 app.listen(4000);
