@@ -18,7 +18,8 @@ app.use(
     origin: 'http://127.0.0.1:5173',
   })
 );
-mongoose.connect(process.env.MONGO_URL);
+// mongoose.connect(process.env.MONGO_URL);
+mongoose.connect('mongodb+srv://asigeula:8xELyjha1GoVPfwO@cluster0.pyjqcqx.mongodb.net/?retryWrites=true&w=majority');
 app.get('/test', (req, res) => {
   res.json('test ok');
 });
