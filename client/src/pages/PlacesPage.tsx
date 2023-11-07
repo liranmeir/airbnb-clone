@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import Perks from '../Perks';
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function PlacesPage() {
   const { action } = useParams();
@@ -9,7 +10,7 @@ export default function PlacesPage() {
   const [addedPhotos, setAddedPhotos] = useState([]);
   const [photoLink, setPhotoLink] = useState('');
   const [description, setDescription] = useState('');
-  const [perks, setPerks] = useState([]);
+  const [perks, setPerks] = useState<boolean[]>([false, false]); // Assuming perks is an array of booleans
   const [extraInfo, setExtraInfo] = useState('');
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
@@ -28,6 +29,10 @@ export default function PlacesPage() {
         {inputDescription(description)}
       </>
     );
+  }
+  async function addPhotoByLink(ev: React.FormEvent) {
+    ev.preventDefault();
+    await axios.post('/upload-by-link', { link: photoLink });
   }
   return (
     <div>
@@ -87,7 +92,10 @@ export default function PlacesPage() {
               </button>
             </div>
             <div className='mt-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>
-              <button className='flex gap-1 justified-center border bg-transparent rounded-2xl p-8 text-2xl text-gray-600'>
+              <button
+                onClick={addPhotoByLink}
+                className='flex gap-1 justified-center border bg-transparent rounded-2xl p-8 text-2xl text-gray-600'
+              >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'

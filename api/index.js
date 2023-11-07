@@ -10,6 +10,7 @@ const { hashSync } = require('bcryptjs');
 const app = express();
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = 'secret';
+const imageDownloader = require('image-downloader');
 app.use(express.json());
 app.use(CookieParser());
 app.use(
@@ -88,5 +89,14 @@ app.get('/profile', (req, res) => {
 
 app.post('/logout', (req, res) => {
   res.cookie('token', '').json(true)
+})
+app.post('/upload-by-link', async (req, res) => {
+ const {link} = req.body;
+ const newName = Date.now() + '.jpg';
+ await imageDownloader.image({
+    url: link,
+    dest: __dirname + '/uploads'
+  })
+  res.json(newName)
 })
 app.listen(4000);
