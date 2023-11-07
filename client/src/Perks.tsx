@@ -1,6 +1,6 @@
 interface PerksProps {
-  selected: boolean;
-  onChange: (selected: boolean) => void;
+  selected: boolean[];
+  onChange: (selected: boolean[]) => void;
 }
 export default function Perks({ selected, onChange }: PerksProps) {
   //add a type to selected and onChange

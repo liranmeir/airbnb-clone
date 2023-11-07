@@ -13,7 +13,7 @@ export default function PlacesPage() {
   const [extraInfo, setExtraInfo] = useState('');
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
-  const [maxGuests, setMaxGuests] = useState(1);
+  const [maxGuests, setMaxGuests] = useState('1');
 
   function inputHeader(text: string) {
     return <h2 className='text-2xl mt-4'>{text}</h2>;
@@ -72,10 +72,16 @@ export default function PlacesPage() {
               }}
               placeholder='Address'
             />
-            <h2 className='text-2xl mt-4'>Photos</h2>
-            <p className='text-gray-500 text-sm'>more = better</p>
+            {preInput('Photos', 'More = Better')}
             <div className='flex gap-2'>
-              <input type='text' placeholder={'Add using a link...jpg'} />
+              <input
+                value={photoLink}
+                onChange={(ev) => {
+                  setPhotoLink(ev.target.value);
+                }}
+                type='text'
+                placeholder={'Add using a link...jpg'}
+              />
               <button className='bg-grey-200 px-4 rounded-2xl py-2'>
                 Add photo
               </button>
@@ -101,14 +107,20 @@ export default function PlacesPage() {
             </div>
             <h2 className='text-2xl mt-4'>Description</h2>
             <p className='text-gray-500 text-sm'>Describe your place</p>
-            <textarea />
+            <textarea
+              value={description}
+              onChange={(ev) => setDescription(ev.target.value)}
+            />
             {preInput('Perks', 'Select all the perks in your place')}
             <div className='mt-2 grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-6'>
               <Perks selected={perks} onChange={setPerks} />
             </div>
 
             {preInput('Extra info', 'House rules, etc')}
-            <textarea />
+            <textarea
+              value={extraInfo}
+              onChange={(ev) => setExtraInfo(ev.target.value)}
+            />
             <h2 className='text-2xl mt-4'>Check in & Check out times</h2>
             <p className='text-gray-500 text-sm'>
               Add check in and check out times, don't forget to live time for
@@ -118,19 +130,33 @@ export default function PlacesPage() {
               <div>
                 <h3 className='mt-2 -mb-1'>
                   Check in time
-                  <input type='text' placeholder='14:00' />
+                  <input
+                    type='text'
+                    value={checkIn}
+                    onChange={(ev) => setCheckIn(ev.target.value)}
+                    placeholder='14:00'
+                  />
                 </h3>
               </div>
               <div>
                 <h3 className='mt-2 -mb-1'>
                   Check out time
-                  <input type='text' />
+                  <input
+                    type='text'
+                    placeholder='11:00'
+                    value={checkOut}
+                    onChange={(ev) => setCheckOut(ev.target.value)}
+                  />
                 </h3>
               </div>
               <div>
                 <h3 className='mt-2 -mb-1'>
                   Maximum guests
-                  <input type='text' />
+                  <input
+                    type='text'
+                    value={maxGuests}
+                    onChange={(ev) => setMaxGuests(ev.target.value)}
+                  />
                 </h3>
               </div>
             </div>
