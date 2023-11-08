@@ -7,7 +7,7 @@ export default function PlacesPage() {
   const { action } = useParams();
   const [title, setTitle] = useState('');
   const [address, setAddress] = useState('');
-  const [addedPhotos, setAddedPhotos] = useState([]);
+  const [addedPhotos, setAddedPhotos] = useState<string[]>([]);
   const [photoLink, setPhotoLink] = useState('');
   const [description, setDescription] = useState('');
   const [perks, setPerks] = useState<boolean[]>([false, false]); // Assuming perks is an array of booleans
@@ -32,8 +32,15 @@ export default function PlacesPage() {
   }
   async function addPhotoByLink(ev: React.FormEvent) {
     ev.preventDefault();
-    await axios.post('/upload-by-link', { link: photoLink });
+    const { data: filename } = await axios.post('/upload-by-link', {
+      link: photoLink,
+    });
+    setAddedPhotos((prev: string[]) => {
+      return [...prev, filename];
+    });
+    setPhotoLink('');
   }
+
   return (
     <div>
       {action !== 'new'}
@@ -87,15 +94,29 @@ export default function PlacesPage() {
                 type='text'
                 placeholder={'Add using a link...jpg'}
               />
-              <button className='bg-grey-200 px-4 rounded-2xl py-2'>
+              <button
+                onClick={addPhotoByLink}
+                className='bg-grey-200 px-4 rounded-2xl py-2'
+              >
                 Add photo
               </button>
             </div>
             <div className='mt-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>
-              <button
-                onClick={addPhotoByLink}
-                className='flex gap-1 justified-center border bg-transparent rounded-2xl p-8 text-2xl text-gray-600'
-              >
+              {addedPhotos.length > 0 &&
+                addedPhotos.map((link) => {
+                  return (
+                    <div>
+                      <img
+                        className='rounded-2xl'
+                        src={'http://localhost:4000/uploads/' + link}
+                        alt='place'
+                      />
+                    </div>
+                  );
+                })}
+            </div>
+            <div className='mt-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>
+              <button className='flex gap-1 justified-center border bg-transparent rounded-2xl p-8 text-2xl text-gray-600'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'

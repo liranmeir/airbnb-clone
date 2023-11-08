@@ -13,6 +13,7 @@ const jwtSecret = 'secret';
 const imageDownloader = require('image-downloader');
 app.use(express.json());
 app.use(CookieParser());
+app.use('/uploads', express.static(__dirname+'/uploads')); 
 app.use(
   cors({
     credentials: true,
