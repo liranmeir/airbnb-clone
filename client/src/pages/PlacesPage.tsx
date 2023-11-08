@@ -103,15 +103,12 @@ export default function PlacesPage() {
             </div>
             <div className='mt-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>
               {addedPhotos.length > 0 &&
-                // addedPhotos.map((link) => {
-                addedPhotos.map(() => {
+                addedPhotos.map((link) => {
                   return (
                     <div>
                       <img
                         className='rounded-2xl'
-                        src={
-                          'http://localhost:4000/uploads/' + '1699469234922.jpg'
-                        }
+                        src={'http://localhost:4000/uploads/' + link}
                         alt='place'
                       />
                     </div>
