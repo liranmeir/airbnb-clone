@@ -99,6 +99,6 @@ app.post('/upload-by-link', async (req, res) => {
     url: link,
     dest: __dirname + '/uploads/'+newName
   })
-  res.json(__dirname + '/uploads/'+newName)
+  res.json(newName)
 })
 app.listen(4000);
