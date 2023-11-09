@@ -116,7 +116,8 @@ export default function PlacesPage() {
                 })}
             </div>
             <div className='mt-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>
-              <button className='flex gap-1 justified-center border bg-transparent rounded-2xl p-8 text-2xl text-gray-600'>
+              <label className='cursor-pointer flex gap-1 justified-center border bg-transparent rounded-2xl p-8 text-2xl text-gray-600'>
+                <input type='file' className='hidden' onChange={uploadPhoto} />
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
@@ -132,7 +133,7 @@ export default function PlacesPage() {
                   />
                 </svg>
                 Upload
-              </button>
+              </label>
             </div>
             <h2 className='text-2xl mt-4'>Description</h2>
             <p className='text-gray-500 text-sm'>Describe your place</p>
