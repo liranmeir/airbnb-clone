@@ -41,6 +41,22 @@ export default function PlacesPage() {
     setPhotoLink('');
   }
 
+  async function uploadPhoto(ev: React.ChangeEvent<HTMLInputElement>) {
+    const files = ev.target.files;
+    if (files && files.length > 0) {
+      const data = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        data.append('photos', files[i]);
+      }
+      await axios.post('/upload', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      const { data: filename } = await axios.post('/upload', data);
+    }
+  }
+
   return (
     <div>
       {action !== 'new'}
@@ -117,7 +133,12 @@ export default function PlacesPage() {
             </div>
             <div className='mt-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>
               <label className='cursor-pointer flex gap-1 justified-center border bg-transparent rounded-2xl p-8 text-2xl text-gray-600'>
-                <input type='file' className='hidden' onChange={uploadPhoto} />
+                <input
+                  type='file'
+                  multiple
+                  className='hidden'
+                  onChange={uploadPhoto}
+                />
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
